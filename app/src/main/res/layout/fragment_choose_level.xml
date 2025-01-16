@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose level"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"
+        android:textSize="18sp"
+        />
+    <Button
+        android:id="@+id/buttonTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Test"
+        android:backgroundTint="#878787"/>
+    <Button
+        android:backgroundTint="#ced2bc"
+        android:id="@+id/buttonEasy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Easy" />
+    <Button
+        android:id="@+id/buttonNormal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Medium"
+        android:backgroundTint="#d2c5bc"/>
+    <Button
+        android:id="@+id/buttonHard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="Hard"
+        android:backgroundTint="#d2bcbc"/>
+    </LinearLayout>
+<Space
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"/>
+</LinearLayout>

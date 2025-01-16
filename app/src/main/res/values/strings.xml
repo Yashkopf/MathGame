@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MathGame</string>
+    <string name="app_rules">Rules of the game: there will be three figures in front of you, two at the bottom and one at the top, in two of them there will be numbers.
+It is necessary that the sum of the numbers from the two lower figures be equal to the number in the upper figure, for this you need to insert the missing number.\n\nExample: in the upper circle there is the number 7, in one of the lower ones there is a question mark, and in the other there is a number (therefore, in place of the question mark there should be the number 3, because 3 + 4 = 7</string>
+    <string name="percent_right_answers_game">Right answers %d (minimal %d)</string>
+    <string name="necessary_right_answers_result">Necessary number of right answers: %d</string>
+    <string name="your_score_result">Your score: %d</string>
+    <string name="necessary_percent_right_answers_result">Necessary percent of right answers: %d</string>
+    <string name="right_answers_percent_result">Right answers percent: %d</string>
+    <string name="right_box_answer">\?</string>
+    <string name="win_state">Win!</string>
+    <string name="loose_state">Loose!</string>
 </resources>
