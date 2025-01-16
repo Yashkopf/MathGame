@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="24dp"
+    tools:context=".presentation.GameFragment">
+
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="00:00"
+        app:layout_constraintBottom_toTopOf="@id/tvMainNumber"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMainNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="12"
+        android:textSize="68sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTimer"
+        app:layout_constraintBottom_toTopOf="@id/tvRightBoxAnswer"/>
+
+    <TextView
+        android:id="@+id/tvLeftBoxAnswer"
+        style="@style/QuestionSquares"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="18dp"
+        android:background="@drawable/rounded_shape"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@id/tvRightBoxAnswer"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="7" />
+
+    <TextView
+        android:id="@+id/tvRightAnswerSmallTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="3"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_green_light"
+        app:layout_constraintBottom_toTopOf="@+id/tvRightBoxAnswer"
+        app:layout_constraintEnd_toEndOf="@id/tvRightBoxAnswer"
+        app:layout_constraintTop_toBottomOf="@id/tvMainNumber"
+        app:layout_constraintStart_toStartOf="@id/tvRightBoxAnswer"/>
+
+    <TextView
+        android:id="@+id/tvRightAnswerSmallBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="3"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_green_light"
+        app:layout_constraintBottom_toTopOf="@+id/tvCountOfRightAnswers"
+        app:layout_constraintEnd_toEndOf="@id/tvRightBoxAnswer"
+        app:layout_constraintTop_toBottomOf="@id/tvRightBoxAnswer"
+        app:layout_constraintStart_toStartOf="@id/tvRightBoxAnswer"
+        app:layout_constraintVertical_bias="0.2"/>
+
+    <TextView
+        android:id="@+id/tvRightBoxAnswer"
+        style="@style/QuestionSquares"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="18dp"
+        android:text="@string/right_box_answer"
+        android:background="@drawable/rounded_shape"
+        android:backgroundTint="#aaaaaa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvLeftBoxAnswer"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCountOfRightAnswers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="@string/percent_right_answers_game"
+        app:layout_constraintBottom_toTopOf="@id/progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        app:trackThickness="15dp"
+        app:trackCornerRadius="10dp"
+        app:trackStopIndicatorSize="10dp"
+        android:secondaryProgressTintMode="screen"
+        android:max="100"
+        android:id="@+id/progressBar"
+        android:progress="20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@android:color/holo_green_light"
+        app:layout_constraintBottom_toTopOf="@id/btnAnswerTwo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAnswerOne"
+        style="@style/AnswerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#cad2bc"
+        app:layout_constraintBottom_toTopOf="@id/btnAnswerFour"
+        app:layout_constraintEnd_toStartOf="@id/btnAnswerTwo"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        tools:text="1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAnswerTwo"
+        style="@style/AnswerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#bcd2c3"
+        app:layout_constraintEnd_toStartOf="@id/btnAnswerThree"
+        app:layout_constraintStart_toEndOf="@+id/btnAnswerOne"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        tools:text="15" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAnswerThree"
+        style="@style/AnswerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#bcc5d2"
+        app:layout_constraintBottom_toTopOf="@id/btnAnswerSix"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnAnswerTwo"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        tools:text="2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAnswerFour"
+        style="@style/AnswerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#c3bcd2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnAnswerFive"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnAnswerOne"
+        tools:text="7" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAnswerFive"
+        style="@style/AnswerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:backgroundTint="#d2bcd0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnAnswerSix"
+        app:layout_constraintStart_toEndOf="@id/btnAnswerFour"
+        app:layout_constraintTop_toBottomOf="@id/btnAnswerTwo"
+        tools:text="5" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAnswerSix"
+        style="@style/AnswerButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#d2bcbe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnAnswerFive"
+        app:layout_constraintTop_toBottomOf="@id/btnAnswerThree"
+        tools:text="2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
