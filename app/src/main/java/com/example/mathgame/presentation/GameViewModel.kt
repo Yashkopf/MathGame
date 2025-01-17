@@ -18,7 +18,7 @@ import com.example.mathgame.domain.usecases.GetGameSettingsUseCase
 
 class GameViewModel(
     private val application: Application,
-    private val level: Level
+    private val level: Level?
 ) : ViewModel() {
 
     private lateinit var gameSettings: GameSettings
@@ -102,6 +102,8 @@ class GameViewModel(
     }
 
     private fun getGameSettings() {
+        if (level == null)
+            return
         this.gameSettings = getGameSettingsUseCase(level)
         _minPercent.value = gameSettings.minPercentOfRightAnswers
 //        countOfQuestions = gameSettings.minCountOfRightAnswers
