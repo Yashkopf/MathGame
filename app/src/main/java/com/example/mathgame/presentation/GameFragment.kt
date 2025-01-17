@@ -1,30 +1,28 @@
 package com.example.mathgame.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.mathgame.R
-import com.example.mathgame.data.GameRepositoryImpl
 import com.example.mathgame.databinding.FragmentGameBinding
 import com.example.mathgame.domain.entity.GameResult
-import com.example.mathgame.domain.entity.GameSettings
 import com.example.mathgame.domain.entity.Level
-import com.example.mathgame.domain.entity.Question
 
 
 class GameFragment : Fragment() {
 
-    private lateinit var level: Level
     private var isTop = true
+    private var level: Level? = null
 
     private val viewModel: GameViewModel by lazy {
+
         ViewModelProvider(
             this,
             GameViewModelFactory(level, requireActivity().application)
@@ -34,11 +32,6 @@ class GameFragment : Fragment() {
     private var _binding: FragmentGameBinding? = null
     private val binding: FragmentGameBinding
         get() = _binding ?: throw RuntimeException("FragmentGameBinding == null")
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        parseArgs()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +44,7 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        level = arguments?.getParcelable(CHOOSE_LEVEL)
         initObservers()
     }
 
@@ -140,36 +134,18 @@ class GameFragment : Fragment() {
         }
     }
 
-    private fun parseArgs() {
-        requireArguments().getParcelable<Level>(KEY_LEVEL)?.let {
-            level = it
-        }
-    }
-
     private fun launchGameResultFragment(gameResult: GameResult) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(
-                R.id.mainContainer, GameResultFragment.newInstance(
-                    gameResult,
-                    viewModel.percentOfRightAnswers.value ?: -1
-                )
-            )
-            .addToBackStack(null)
-            .commit()
+        val rightPercent = viewModel.percentOfRightAnswers.value ?: -1
+        findNavController().navigate(R.id.gameResultFragment,
+            GameResultFragment.makeArgs(gameResult, rightPercent))
     }
 
     companion object {
 
-        private const val KEY_LEVEL = "level"
+        const val CHOOSE_LEVEL = "choose_level"
 
-        const val NAME = "GameFragment"
-
-        fun newInstance(level: Level): GameFragment {
-            return GameFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(KEY_LEVEL, level)
-                }
-            }
+        fun makeArgs(level: Level): Bundle {
+            return bundleOf(CHOOSE_LEVEL to level)
         }
     }
 }

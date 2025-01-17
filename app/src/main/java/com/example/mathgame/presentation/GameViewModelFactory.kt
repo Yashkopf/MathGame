@@ -4,10 +4,9 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mathgame.domain.entity.Level
-import kotlinx.coroutines.Runnable
 
 class GameViewModelFactory(
-    private val level: Level,
+    private val level: Level?,
     private val application: Application
 ): ViewModelProvider.Factory {
 
