@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -34,9 +35,21 @@ class GameResultFragment : Fragment() {
         val rightPercent = arguments?.getInt(RIGHT_PERCENT) ?: 0
         receiveScore(rightPercent)
         checkResult()
+        onBackPressedCallBack()
+
         binding.btnTryAgain.setOnClickListener {
             retryGame()
         }
+    }
+
+    private fun onBackPressedCallBack() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                retryGame()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner, callback)
     }
 
     private fun checkResult() {
@@ -77,6 +90,8 @@ class GameResultFragment : Fragment() {
     private fun retryGame() {
         findNavController().popBackStack(R.id.chooseLevelFragment, false)
     }
+
+
 
     companion object {
 
