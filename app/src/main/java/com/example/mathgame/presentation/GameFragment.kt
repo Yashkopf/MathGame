@@ -14,6 +14,8 @@ import com.example.mathgame.R
 import com.example.mathgame.databinding.FragmentGameBinding
 import com.example.mathgame.domain.entity.GameResult
 import com.example.mathgame.domain.entity.Level
+import javax.security.auth.callback.Callback
+import kotlin.concurrent.thread
 
 
 class GameFragment : Fragment() {
@@ -69,8 +71,9 @@ class GameFragment : Fragment() {
             buttons.forEachIndexed() { index, view ->
                 view.text = it.options[index].toString()
 
-                    view.setOnClickListener {
-                        viewModel.chooseAnswer(view.text.toString().toInt())
+                view.setOnClickListener {
+                    viewModel.chooseAnswer(view.text.toString().toInt())
+                }
 
 
 //                        viewModel.generateQuestion.value?.rightAnswer == (test - view.text.toString().toInt())
@@ -94,7 +97,6 @@ class GameFragment : Fragment() {
 //                            isTop = true
 //                        }
 
-                }
             }
         }
 
@@ -130,14 +132,16 @@ class GameFragment : Fragment() {
         }
 
         viewModel.gameResult.observe(viewLifecycleOwner) {
-           launchGameResultFragment(it)
+            launchGameResultFragment(it)
         }
     }
 
     private fun launchGameResultFragment(gameResult: GameResult) {
         val rightPercent = viewModel.percentOfRightAnswers.value ?: -1
-        findNavController().navigate(R.id.gameResultFragment,
-            GameResultFragment.makeArgs(gameResult, rightPercent))
+        findNavController().navigate(
+            R.id.gameResultFragment,
+            GameResultFragment.makeArgs(gameResult, rightPercent)
+        )
     }
 
     companion object {
