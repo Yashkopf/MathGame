@@ -11,8 +11,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.mathgame.R
 import com.example.mathgame.databinding.FragmentResultBinding
 import com.example.mathgame.domain.entity.GameResult
+import javax.inject.Inject
 
-class GameResultFragment : Fragment() {
+class GameResultFragment @Inject constructor(): Fragment() {
 
     private var gameResult: GameResult? = null
     private var _binding: FragmentResultBinding? = null

@@ -9,8 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.mathgame.R
 import com.example.mathgame.databinding.FragmentChooseLevelBinding
 import com.example.mathgame.domain.entity.Level
+import javax.inject.Inject
 
-class ChooseLevelFragment: Fragment() {
+class ChooseLevelFragment @Inject constructor(): Fragment() {
 
     private var _binding: FragmentChooseLevelBinding? = null
     private val binding: FragmentChooseLevelBinding

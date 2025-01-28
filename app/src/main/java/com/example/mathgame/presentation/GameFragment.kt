@@ -8,38 +8,36 @@ import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.mathgame.MyApplication
 import com.example.mathgame.R
 import com.example.mathgame.databinding.FragmentGameBinding
+import com.example.mathgame.di.ActivityModule
+import com.example.mathgame.di.DaggerActivityComponent
 import com.example.mathgame.domain.entity.GameResult
 import com.example.mathgame.domain.entity.Level
-import javax.security.auth.callback.Callback
-import kotlin.concurrent.thread
+import javax.inject.Inject
 
 
-class GameFragment : Fragment() {
+class GameFragment @Inject constructor() : Fragment() {
 
     private var isTop = true
     private var level: Level? = null
 
-    private val viewModel: GameViewModel by lazy {
-
-        ViewModelProvider(
-            this,
-            GameViewModelFactory(level, requireActivity().application)
-        )[GameViewModel::class.java]
-    }
+    @Inject
+    lateinit var viewModel: GameViewModel
 
     private var _binding: FragmentGameBinding? = null
     private val binding: FragmentGameBinding
         get() = _binding ?: throw RuntimeException("FragmentGameBinding == null")
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+        injectDependencies()
         _binding = FragmentGameBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -47,6 +45,7 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         level = arguments?.getParcelable(CHOOSE_LEVEL)
+        viewModel.setLevel(level)
         initObservers()
     }
 
@@ -55,8 +54,17 @@ class GameFragment : Fragment() {
         _binding = null
     }
 
+    private fun injectDependencies(){
+        DaggerActivityComponent.builder()
+            .applicationComponent((requireActivity().application as MyApplication).applicationComponent)
+            .activityModule(ActivityModule(requireActivity() as MainActivity))
+            .build()
+            .inject(this)
+    }
+
     private fun initObservers() {
         viewModel.generateQuestion.observe(viewLifecycleOwner) {
+            if(it.options.isEmpty()) return@observe
             binding.tvLeftBoxAnswer.text = it.visibleNumber.toString()
             binding.tvMainNumber.text = it.sum.toString()
 
@@ -137,6 +145,7 @@ class GameFragment : Fragment() {
     }
 
     private fun launchGameResultFragment(gameResult: GameResult) {
+        viewModel.setLevel(null)
         val rightPercent = viewModel.percentOfRightAnswers.value ?: -1
         findNavController().navigate(
             R.id.gameResultFragment,

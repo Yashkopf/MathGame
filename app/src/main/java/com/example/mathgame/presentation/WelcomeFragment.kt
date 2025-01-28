@@ -9,8 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.mathgame.R
 import com.example.mathgame.databinding.FragmentWelcomeBinding
+import javax.inject.Inject
 
-class WelcomeFragment: Fragment() {
+class WelcomeFragment @Inject constructor(): Fragment() {
 
     private var _binding: FragmentWelcomeBinding? = null
     private val binding: FragmentWelcomeBinding

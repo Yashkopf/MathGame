@@ -2,8 +2,9 @@ package com.example.mathgame.domain.usecases
 
 import com.example.mathgame.domain.entity.Question
 import com.example.mathgame.domain.repository.GameRepository
+import javax.inject.Inject
 
-class GenerateQuestionUseCase(
+class GenerateQuestionUseCase @Inject constructor(
     private val repository: GameRepository
 ) {
 

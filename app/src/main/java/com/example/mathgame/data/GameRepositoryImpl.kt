@@ -1,22 +1,23 @@
 package com.example.mathgame.data
 
+import android.util.Log
 import com.example.mathgame.domain.entity.GameSettings
 import com.example.mathgame.domain.entity.Level
 import com.example.mathgame.domain.entity.Question
 import com.example.mathgame.domain.repository.GameRepository
+import javax.inject.Inject
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
 
-object GameRepositoryImpl : GameRepository {
-
-    private const val MIN_SUM_VALUE = 2
-    private const val MIN_ANSWER_VALUE = 1
+class GameRepositoryImpl @Inject constructor () : GameRepository {
 
     override fun generateQuestion(
         maxSumValue: Int,
         countOfOptions: Int,
     ): Question {
+        if (maxSumValue == 0) return Question(0,0, emptyList())
+        Log.e("gere", "$maxSumValue, $countOfOptions")
         val sum = Random.nextInt(MIN_SUM_VALUE, maxSumValue)
         val visibleNumber = Random.nextInt(MIN_ANSWER_VALUE, sum)
         val options = HashSet<Int>()
@@ -48,5 +49,11 @@ object GameRepositoryImpl : GameRepository {
                 GameSettings(30, 10, 90, 20)
             }
         }
+    }
+
+    companion object {
+        private const val MIN_SUM_VALUE = 2
+        private const val MIN_ANSWER_VALUE = 1
+
     }
 }
