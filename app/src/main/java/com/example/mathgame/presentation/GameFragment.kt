@@ -10,10 +10,12 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.mathgame.MainApplication
 import com.example.mathgame.R
 import com.example.mathgame.databinding.FragmentGameBinding
 import com.example.mathgame.domain.entity.GameResult
 import com.example.mathgame.domain.entity.Level
+import javax.inject.Inject
 import javax.security.auth.callback.Callback
 import kotlin.concurrent.thread
 
@@ -23,23 +25,24 @@ class GameFragment : Fragment() {
     private var isTop = true
     private var level: Level? = null
 
-    private val viewModel: GameViewModel by lazy {
-
-        ViewModelProvider(
-            this,
-            GameViewModelFactory(level, requireActivity().application)
-        )[GameViewModel::class.java]
-    }
+    @Inject
+    lateinit var viewModel: GameViewModel
 
     private var _binding: FragmentGameBinding? = null
     private val binding: FragmentGameBinding
         get() = _binding ?: throw RuntimeException("FragmentGameBinding == null")
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (MainApplication().provideAppComponent().injectGameFragment(this))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+
         _binding = FragmentGameBinding.inflate(inflater, container, false)
         return binding.root
     }

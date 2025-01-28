@@ -4,14 +4,12 @@ import com.example.mathgame.domain.entity.GameSettings
 import com.example.mathgame.domain.entity.Level
 import com.example.mathgame.domain.entity.Question
 import com.example.mathgame.domain.repository.GameRepository
+import javax.inject.Inject
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
 
-object GameRepositoryImpl : GameRepository {
-
-    private const val MIN_SUM_VALUE = 2
-    private const val MIN_ANSWER_VALUE = 1
+class GameRepositoryImpl @Inject constructor(): GameRepository {
 
     override fun generateQuestion(
         maxSumValue: Int,
@@ -48,5 +46,10 @@ object GameRepositoryImpl : GameRepository {
                 GameSettings(30, 10, 90, 20)
             }
         }
+    }
+
+    companion object {
+        private const val MIN_SUM_VALUE = 2
+        private const val MIN_ANSWER_VALUE = 1
     }
 }
